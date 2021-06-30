@@ -145,6 +145,6 @@ The `options` parameter is a set of values to determine what view port sizes fit
 | afterWindowSize | Function | `function(){}` | Code to run after the window size is recalculated by the [`update`](#windowSize.update) method below. |
 
 
-####`update()`
+#### `update()`
 
 Updates the window size flags. Designed to be run as the `window.onresize` event handler. See [windowSize Properties](#windowSizeProperties) above.
