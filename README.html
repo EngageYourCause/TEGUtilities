@@ -1,0 +1,454 @@
+<!--
+  ~ Copyright (c) 2020. The Production Management Group, Ltd.
+-->
+<!DOCTYPE html>
+<!--suppress JSUnresolvedLibraryURL -->
+<html lang="en">
+<head>
+	<title>TEG Utilities</title>
+	<meta charset="UTF-8" />
+	<meta name="keywords" content="javascript, library, quiz, trivia, form" />
+	<meta name="description" content="Creates additional HTML structure and adds functionality to fake pagination of a single page's content." />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<style>
+		body {
+			background: white;
+			margin: 0 auto;
+			max-width: 60rem;
+		}
+
+		td,
+		th {
+			padding: 4pt;
+			vertical-align: top;
+		}
+
+		pre {
+			font-size: smaller;
+			max-width: 800px;
+			overflow: auto;
+		}
+
+		td[colspan] > pre.prettyprint.lang-javascript.prettyprinted {
+			max-width: 100%;
+		}
+
+		td > pre.prettyprint.lang-javascript.prettyprinted {
+			max-width: 20rem;
+			padding: .5rem;
+		}
+
+		tr:nth-child(odd) {
+			background: lightgray;
+		}
+
+		tr:nth-child(odd) td[colspan] {
+			background: white;
+		}
+
+		dt {
+			margin-top: 10pt;
+		}
+
+		.emphasis,
+		.emphasis .pun {
+			background: gray;
+			color: yellow;
+		}
+
+		/* placeholder selectors for IDE convenience */
+		.prettyprint, .lang-javascript, .lang-html {
+			/* no actual styles, just used  to trigger autocomplete in my IDE */
+		}
+	</style>
+	<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+<body>
+<h1>TEG Utilities</h1>
+<p>A collection of useful code.</p>
+<h2>Requires</h2>
+<ul>
+	<li><a href="https://www.w3schools.com/Js/js_es6.asp">ECMAScript 6 compliant environment</a></li>
+</ul>
+<h2>Provided</h2>
+<dl>
+	<dt><a href="src/TEGUtilities.js">TEGUtilities.js</a></dt>
+</dl>
+<h2>Installation</h2>
+<p>Link the JavaScript in the <code class="prettyprint lang-javascript">&lt;head&gt;</code> element of the page.</p>
+<pre class="prettyprint lang-html">
+  &lt;script src="https://foo.bar.com/path/to/files/TEGUtilities.js" type="text/javascript">&lt;/script>
+</pre>
+<p>Create a new <code class="prettyprint lang-javascript">TEGUtilties</code> object in a
+	<code class="prettyprint lang-javascript">&lt;script></code> element or external JavaScript file.
+</p>
+<pre class="prettyprint lang-javascript">
+  window.tu = new TEGUtilities();
+</pre>
+<h2>Methods</h2>
+<dl>
+	<dt id="between"><code class="prettyprint lang-javascript">between( value, minimum, maximum )</code></dt>
+	<dd>
+		<p>Returns <code class="prettyprint lang-javascript">true</code> if <code class="prettyprint lang-javascript">value</code> is strictly between
+			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code>.
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>
+					Parameter
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Default
+				</th>
+				<th>
+					Description
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code class="prettyprint lang-javascript">value</code></td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">0</code></td>
+				<td>The value to be compared.</td>
+			</tr>
+			<tr>
+				<td><code class="prettyprint lang-javascript">minimum</code></td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">0</code></td>
+				<td>The minimum value of the acceptable range. <code class="prettyprint lang-javascript">value</code> must be larger than
+					<code class="prettyprint lang-javascript">minimum</code>.
+				</td>
+			</tr>
+			<tr>
+				<td><code class="prettyprint lang-javascript">maximum</code></td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">0</code></td>
+				<td>The maximum value of the acceptable range. <code class="prettyprint lang-javascript">value</code> must be smaller than
+					<code class="prettyprint lang-javascript">maximum</code>.
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</dd>
+	<dt id="betweenInclude"><code class="prettyprint lang-javascript">betweenInclude( value, minimum, maximum, include )</code></dt>
+	<dd>
+		<p>Returns <code class="prettyprint lang-javascript">true</code> if <code class="prettyprint lang-javascript">value</code> is strictly between
+			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code>.
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>
+					Parameter
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Default
+				</th>
+				<th>
+					Description
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code class="prettyprint lang-javascript">value</code></td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">0</code></td>
+				<td>The value to be compared.</td>
+			</tr>
+			<tr>
+				<td><code class="prettyprint lang-javascript">minimum</code></td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">0</code></td>
+				<td>The minimum value of the acceptable range.</td>
+			</tr>
+			<tr>
+				<td><code class="prettyprint lang-javascript">maximum</code></td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">0</code></td>
+				<td>The maximum value of the acceptable range.</td>
+			</tr>
+			<tr>
+				<td><code class="prettyprint lang-javascript">include</code></td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">TEGUtilities.BTWN_INCL_NONE</code>&nbsp;(<code class="prettyprint lang-javascript">0</code>)</td>
+				<td>Indicates which, if either, of the limit values should be included in the acceptable range. See <a href="#constants">Constants</a> below.</td>
+			</tr>
+			</tbody>
+		</table>
+	</dd>
+	<dt><code class="prettyprint lang-javascript">debounce( originalFunction, timout, otherArgs )</code></dt>
+	<dd>
+		<p>Returns a debounced function which is prevented from running more than once in <code class="prettyprint lang-javascript">timout</code> milliseconds.</p>
+		<table>
+			<thead>
+			<tr>
+				<th>
+					Parameter
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Description
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code class="prettyprint lang-javascript">originalFunction</code></td>
+				<td>Function</td>
+				<td>The function to debounce.</td>
+			</tr>
+			<tr>
+				<td><code class="prettyprint lang-javascript">timeout</code></td>
+				<td>Number</td>
+				<td>The number of milliseconds to wait before allowing <code class="prettyprint lang-javascript">originalFunction</code> to run again.</td>
+			</tr>
+			<tr>
+				<td><code class="prettyprint lang-javascript">otherArgs</code></td>
+				<td>Array</td>
+				<td>An array of values passed to <code class="prettyprint lang-javascript">originalFunction</code> as parameters.</td>
+			</tr>
+			</tbody>
+		</table>
+	</dd>
+	<dt><code class="prettyprint lang-javascript">throttle( originalFunction, timout, otherArgs )</code></dt>
+	<dd>
+		<p>Returns a throttled function which is prevented from running until calls have stopped for <code class="prettyprint lang-javascript">timout</code> milliseconds.</p>
+		<table>
+			<thead>
+			<tr>
+				<th>
+					Parameter
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Description
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code class="prettyprint lang-javascript">originalFunction</code></td>
+				<td>Function</td>
+				<td>The function to throttle.</td>
+			</tr>
+			<tr>
+				<td><code class="prettyprint lang-javascript">timeout</code></td>
+				<td>Number</td>
+				<td>The number of milliseconds to wait before allowing <code class="prettyprint lang-javascript">originalFunction</code> to run again.</td>
+			</tr>
+			<tr>
+				<td><code class="prettyprint lang-javascript">otherArgs</code></td>
+				<td>Array</td>
+				<td>An array of values passed to <code class="prettyprint lang-javascript">originalFunction</code> as parameters.</td>
+			</tr>
+			</tbody>
+		</table>
+	</dd>
+</dl>
+<h2 id="constants">Constants</h2>
+<p>All four constants are convenience values for the <code class="prettyprint lang-javascript">include</code> parameter of the
+	<code class="prettyprint lang-javascript">betweenInclude()</code> method above.
+</p>
+<table>
+	<thead>
+	<tr>
+		<th>Constant</th>
+		<th>Value</th>
+		<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td><code class="prettyprint lang-javascript">TEGUtilities.BTWN_INCL_NONE</code></td>
+		<td><code class="prettyprint lang-javascript">0</code></td>
+		<td>Indicates that the acceptable range excludes the minimum and maximum values.</td>
+	</tr>
+	<tr>
+		<td><code class="prettyprint lang-javascript">TEGUtilities.BTWN_INCL_LOWER</code></td>
+		<td><code class="prettyprint lang-javascript">1</code></td>
+		<td>Indicates that the acceptable range includes the minimum value.</td>
+	</tr>
+	<tr>
+		<td><code class="prettyprint lang-javascript">TEGUtilities.BTWN_INCL_HIGHER</code></td>
+		<td><code class="prettyprint lang-javascript">2</code></td>
+		<td>Indicates that the acceptable range includes the maximum value.</td>
+	</tr>
+	<tr>
+		<td><code class="prettyprint lang-javascript">TEGUtilities.BTWN_INCL_BOTH</code></td>
+		<td><code class="prettyprint lang-javascript">3</code></td>
+		<td>Indicates that the acceptable range includes the minimum and maximum values.</td>
+	</tr>
+	</tbody>
+</table>
+<h2>Objects</h2>
+<h3 id="windowSize">windowSize</h3>
+<p>Provides easy window size detection.</p>
+<h4 id="windowSizeInitialization">Initialization</h4>
+<p>Initialize the <code class="prettyprint lang-javascript">windowSize</code> object with a call to <code class="prettyprint lang-javascript">init()</code> in a
+	<code class="prettyprint lang-html">&lt;script></code> element or
+	<code class="prettyprint lang-javascript">.js</code> file. See
+	<code class="prettyprint lang-javascript"><a href="#windowSizeOptions">options</a></code> below.
+</p>
+<pre class="prettyprint lang-javascript">
+&lt;!-- This is the initialization script from test/windowSizeExample.html -->
+&lt;script>
+  var tu = new TEGUtilities();
+  tu.windowSize.init({
+                    afterWindowSize : function() {
+                      document.querySelector('#isSmall').textContent = tu.windowSize.isSmall;
+                      document.querySelector('#isMedium').textContent = tu.windowSize.isMedium;
+                      document.querySelector('#isLarge').textContent = tu.windowSize.isLarge;
+                      document.querySelector('#isLarger').textContent = tu.windowSize.isLarger;
+                      document.querySelector('#isTall').textContent = tu.windowSize.isTall;
+                    }
+                  });
+  /* windowSize doesn't attach itself to the window.onresize listener
+   * because of possible conflicts with whatever app is using it.
+   * There's also some context issues that may arise. When attaching,
+   * it's best to use the throttle method (see below) so you don't use
+   * too many resources.
+   */
+  window.onresize = tu.throttle(tu.windowSize.update, 300);
+&lt;/script>
+</pre>
+<h3 id="windowSizeProperties">windowSize Properties</h3>
+<p>See the
+	<a href="#inclusive"><code class="prettyprint lang-javascript">inclusive</code></a> option below.
+</p>
+<dl>
+	<dt id="isSmall"><code class="prettyprint lang-javascript">isSmall</code></dt>
+	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window is smaller than or equal to
+		<a href="#smallMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.smallMaxWidth</code></a>.
+	</dd>
+	<dt id="isMedium"><code class="prettyprint lang-javascript">isMedium</code></dt>
+	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window width is between
+		<a href="#smallMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.smallMaxWidth</code></a> and
+		<a href="#mediumMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.mediumMaxWidth</code></a>.
+	</dd>
+	<dt id="isLarge"><code class="prettyprint lang-javascript">isLarge</code></dt>
+	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window width is between
+		<a href="#mediumMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.mediumMaxWidth</code></a> and
+		<a href="#largeMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.largeMaxWidth</code></a>.
+	</dd>
+	<dt id="isLarger"><code class="prettyprint lang-javascript">isLarger</code></dt>
+	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window is larger than
+		<a href="#largeMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.largeMaxWidth</code></a>. This comparison is not affected by the
+		<a href="#inclusive"><code class="prettyprint lang-javascript">inclusive</code></a> option above as there is only the &ldquo;smaller&rdquo; value to compare against.
+	</dd>
+	<dt id="isTall"><code class="prettyprint lang-javascript">isTall</code></dt>
+	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window is taller than
+		<a href="#tallMinHeight"><code class="prettyprint lang-javascript">windowSize.options.tallMinHeight</code></a>.
+	</dd>
+</dl>
+<h4 id="windowSizeOptions">windowSize Options</h4>
+<p>The <code class="prettyprint lang-javascript">options</code> parameter is a set of values to determine what view port sizes fit in to which of the categories above.</p>
+<table>
+	<thead>
+	<tr>
+		<th>
+			Option
+		</th>
+		<th>
+			Type
+		</th>
+		<th>
+			Default
+		</th>
+		<th>
+			Description
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td id="smallMaxWidth">smallMaxWidth</td>
+		<td>Number</td>
+		<td><code class="prettyprint lang-javascript">740</code></td>
+		<td>Maximum width in pixels of a &quot;small&quot; screen like a smartphone or tablet in portrait orientation.</td>
+	</tr>
+	<tr>
+		<td id="mediumMaxWidth">mediumMaxWidth</td>
+		<td>Number</td>
+		<td><code class="prettyprint lang-javascript">1024</code></td>
+		<td>Maximum width in pixels of a &quot;medium&quot; screen like a tablet in landscape orientation.</td>
+	</tr>
+	<tr>
+		<td id="largeMaxWidth">largeMaxWidth</td>
+		<td>Number</td>
+		<td><code class="prettyprint lang-javascript">1024</code></td>
+		<td>Maximum width in pixels of a &quot;large&quot; screen like a desktop computer screen.</td>
+	</tr>
+	<tr>
+		<td id="tallMinHeight">tallMinHeight</td>
+		<td>Number</td>
+		<td><code class="prettyprint lang-javascript">1024</code></td>
+		<td>Minimum height in pixels of a &quot;tall&quot; screen like a desktop computer screen in portrait view.</td>
+	</tr>
+	<tr>
+		<td id="inclusive">inclusive</td>
+		<td>Boolean</td>
+		<td><code class="prettyprint lang-javascript">true</code></td>
+		<td>
+			<p>Whether the break points above should be included in the size comparison. If
+				<code class="prettyprint lang-javascript">true</code>, the larger number will be included in the accepted range of sizes:
+			</p>
+			<pre class="prettyprint lang-javascript">
+// this is not actual code used
+if (inclusive) {
+  return minimum > size &&
+         size <span class="emphasis"><=</span> maximum;
+
+} else {
+  return minimum > size &&
+         size <span class="emphasis"><</span> maximum;
+}
+</pre>
+			<p>See the method <a href="#betweenInclusive"><code class="prettyprint lang-javascript">betweenInclusive</code></a> below.</p>
+		</td>
+	</tr>
+	<tr>
+		<td id="afterWindowSize">afterWindowSize</td>
+		<td>Function</td>
+		<td>
+<pre class="prettyprint lang-javascript">
+function() {
+
+  if (console) {
+    console.log('The default TEGUtilities.windowSize.afterWindowSize() method does nothing.');
+  } // end log
+  return false;
+}
+</pre>
+		</td>
+		<td>Code to run after the window size is recalculated by the <a href="#windowSize.update"><code class="prettyprint lang-javascript">update</code></a> method below.</td>
+	</tr>
+	</tbody>
+</table>
+<h3 id="windowSizeMethods">windowSize Methods</h3>
+<dl>
+	<dt id="windowSize.init"><code class="prettyprint lang-javascript">init()</code></dt>
+	<dd>
+		<p>Initializes the windowSize object. See <a href="#windowSizeInitialization">windowSize Initialization</a> above.</p>
+	</dd>
+	<dt id="windowSize.update"><code class="prettyprint lang-javascript">update()</code></dt>
+	<dd>
+		<p>Updates the window size flags. Designed to be run as the <code class="prettyprint lang-javascript">window.onresize</code> event handler. See
+			<a href="#windowSizeProperties">windowSize Properties</a> above.
+		</p>
+	</dd>
+</dl>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Example of TEG Utilities windowSize()</title>
+	<script src="../src/TEGUtilities.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", (event) => {
+			var tu = new TEGUtilities();
+			tu.windowSize.init({
+				                   afterWindowSize : function() {
+					                   document.querySelector('#isSmall').textContent = tu.windowSize.isSmall;
+					                   document.querySelector('#isMedium').textContent = tu.windowSize.isMedium;
+					                   document.querySelector('#isLarge').textContent = tu.windowSize.isLarge;
+					                   document.querySelector('#isLarger').textContent = tu.windowSize.isLarger;
+					                   document.querySelector('#isTall').textContent = tu.windowSize.isTall;
+				                   }
+			                   });
+			/* windowSize doesn't attach itself because of possible
+			 * conflicts with whatever app is using it. There's also
+			 * some context issues that may arise.
+			 */
+			window.onresize = TEGUtilities.throttle(tu.windowSize.update, 300);
+		});
+	</script>
+</head>
+<body>
+<h1>onresize</h1>
+<section id="windowSizeHolder">
+	<h2>windowSize</h2>
+	<p>
+		isSmall = <span id="isSmall"></span><br />
+		isMedium = <span id="isMedium"></span><br />
+		isLarge = <span id="isLarge"></span><br />
+		isLarger = <span id="isLarger"></span><br />
+		isTall = <span id="isTall"></span></p>
+</section>
+</body>
+</html>
