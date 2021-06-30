@@ -1,6 +1,6 @@
 # TEG Utilities
 
-A collection of useful code.
+A collection of useful code. There's a prettier version of this documentation at [https://pbjteg.github.io/TEGUtilities/](https://pbjteg.github.io/TEGUtilities/).
 
 ## Requires
 
