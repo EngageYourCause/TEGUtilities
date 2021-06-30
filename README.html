@@ -223,7 +223,7 @@
 	</dd>
 	<dt><code class="prettyprint lang-javascript">throttle( originalFunction, timout, otherArgs )</code></dt>
 	<dd>
-		<p>Returns a throttled function which is prevented from running until calls have stopped for <code class="prettyprint lang-javascript">timout</code> milliseconds.</p>
+		<p>Returns a throttled function which will run once and then not again for <code class="prettyprint lang-javascript">timout</code> milliseconds.</p>
 		<table>
 			<thead>
 			<tr>
@@ -297,7 +297,7 @@
 <h3 id="windowSize">windowSize</h3>
 <p>Provides easy window size detection.</p>
 <h4 id="windowSizeInitialization">Initialization</h4>
-<p>Initialize the <code class="prettyprint lang-javascript">windowSize</code> object with a call to <code class="prettyprint lang-javascript">init()</code> in a
+<p>Initialize the <code class="prettyprint lang-javascript">windowSize</code> object with a call to <code class="prettyprint lang-javascript">init({options. . . })</code> in a
 	<code class="prettyprint lang-html">&lt;script></code> element or
 	<code class="prettyprint lang-javascript">.js</code> file. See
 	<code class="prettyprint lang-javascript"><a href="#windowSizeOptions">options</a></code> below.
@@ -353,59 +353,110 @@
 		<a href="#tallMinHeight"><code class="prettyprint lang-javascript">windowSize.options.tallMinHeight</code></a>.
 	</dd>
 </dl>
-<h4 id="windowSizeOptions">windowSize Options</h4>
-<p>The <code class="prettyprint lang-javascript">options</code> parameter is a set of values to determine what view port sizes fit in to which of the categories above.</p>
-<table>
-	<thead>
-	<tr>
-		<th>
-			Option
-		</th>
-		<th>
-			Type
-		</th>
-		<th>
-			Default
-		</th>
-		<th>
-			Description
-		</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td id="smallMaxWidth">smallMaxWidth</td>
-		<td>Number</td>
-		<td><code class="prettyprint lang-javascript">740</code></td>
-		<td>Maximum width in pixels of a &quot;small&quot; screen like a smartphone or tablet in portrait orientation.</td>
-	</tr>
-	<tr>
-		<td id="mediumMaxWidth">mediumMaxWidth</td>
-		<td>Number</td>
-		<td><code class="prettyprint lang-javascript">1024</code></td>
-		<td>Maximum width in pixels of a &quot;medium&quot; screen like a tablet in landscape orientation.</td>
-	</tr>
-	<tr>
-		<td id="largeMaxWidth">largeMaxWidth</td>
-		<td>Number</td>
-		<td><code class="prettyprint lang-javascript">1024</code></td>
-		<td>Maximum width in pixels of a &quot;large&quot; screen like a desktop computer screen.</td>
-	</tr>
-	<tr>
-		<td id="tallMinHeight">tallMinHeight</td>
-		<td>Number</td>
-		<td><code class="prettyprint lang-javascript">1024</code></td>
-		<td>Minimum height in pixels of a &quot;tall&quot; screen like a desktop computer screen in portrait view.</td>
-	</tr>
-	<tr>
-		<td id="inclusive">inclusive</td>
-		<td>Boolean</td>
-		<td><code class="prettyprint lang-javascript">true</code></td>
-		<td>
-			<p>Whether the break points above should be included in the size comparison. If
-				<code class="prettyprint lang-javascript">true</code>, the larger number will be included in the accepted range of sizes:
-			</p>
-			<pre class="prettyprint lang-javascript">
+<h3 id="windowSizeMethods">windowSize Methods</h3>
+<dl>
+	<dt id="windowSize.init"><code class="prettyprint lang-javascript">init( options )</code></dt>
+	<dd>
+		<p>Initializes the windowSize object. See <a href="#windowSizeInitialization">windowSize Initialization</a> above.</p>
+		<table>
+			<thead>
+			<tr>
+				<th>
+					Parameter
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Default
+				</th>
+				<th>
+					Description
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>options</td>
+				<td>Collection</td>
+				<td>
+<pre class="prettyprint lang-javascript">
+  {
+	smallMaxWidth  : 740,
+	mediumMaxWidth : 1024,
+	largeMaxWidth  : 2048,
+	tallMinHeight  : 820,
+	inclusive      : true, // should the window size comparisons include the break points?
+
+	// allow customizable callback
+	afterWindowSize : function() {
+
+		if (console) {
+			console.log('The default TEGUtilities.windowSize.afterWindowSize() method does nothing.');
+		} // end log
+		return false;
+	},
+  }
+</pre>
+				</td>
+				<td>A collection of values used to configure the view pane size breakpoints. See <a href="#windowSizeOptions"><code class="prettyprint lang-javascript">Options</code></a> below.</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4 id="windowSizeOptions">Options</h4>
+		<p>The <code class="prettyprint lang-javascript">options</code> parameter is a set of values to determine what view port sizes fit in to which of the categories defined is
+			<a href="#windowSizeProperties"><code class="prettyprint lang-javascript">Properties</code></a> above.</p>
+		<table>
+			<thead>
+			<tr>
+				<th>
+					Option
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Default
+				</th>
+				<th>
+					Description
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td id="smallMaxWidth">smallMaxWidth</td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">740</code></td>
+				<td>Maximum width in pixels of a &quot;small&quot; screen like a smartphone or tablet in portrait orientation.</td>
+			</tr>
+			<tr>
+				<td id="mediumMaxWidth">mediumMaxWidth</td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">1024</code></td>
+				<td>Maximum width in pixels of a &quot;medium&quot; screen like a tablet in landscape orientation.</td>
+			</tr>
+			<tr>
+				<td id="largeMaxWidth">largeMaxWidth</td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">1024</code></td>
+				<td>Maximum width in pixels of a &quot;large&quot; screen like a desktop computer screen.</td>
+			</tr>
+			<tr>
+				<td id="tallMinHeight">tallMinHeight</td>
+				<td>Number</td>
+				<td><code class="prettyprint lang-javascript">1024</code></td>
+				<td>Minimum height in pixels of a &quot;tall&quot; screen like a desktop computer screen in portrait view.</td>
+			</tr>
+			<tr>
+				<td id="inclusive">inclusive</td>
+				<td>Boolean</td>
+				<td><code class="prettyprint lang-javascript">true</code></td>
+				<td>
+					<p>Whether the break points above should be included in the size comparison. If
+						<code class="prettyprint lang-javascript">true</code>, the larger number will be included in the accepted range of sizes:
+					</p>
+					<pre class="prettyprint lang-javascript">
 // this is not actual code used
 if (inclusive) {
   return minimum > size &&
@@ -416,13 +467,13 @@ if (inclusive) {
          size <span class="emphasis"><</span> maximum;
 }
 </pre>
-			<p>See the method <a href="#betweenInclusive"><code class="prettyprint lang-javascript">betweenInclusive</code></a> below.</p>
-		</td>
-	</tr>
-	<tr>
-		<td id="afterWindowSize">afterWindowSize</td>
-		<td>Function</td>
-		<td>
+					<p>See the method <a href="#betweenInclusive"><code class="prettyprint lang-javascript">betweenInclusive</code></a> below.</p>
+				</td>
+			</tr>
+			<tr>
+				<td id="afterWindowSize">afterWindowSize</td>
+				<td>Function</td>
+				<td>
 <pre class="prettyprint lang-javascript">
 function() {
 
@@ -432,16 +483,11 @@ function() {
   return false;
 }
 </pre>
-		</td>
-		<td>Code to run after the window size is recalculated by the <a href="#windowSize.update"><code class="prettyprint lang-javascript">update</code></a> method below.</td>
-	</tr>
-	</tbody>
-</table>
-<h3 id="windowSizeMethods">windowSize Methods</h3>
-<dl>
-	<dt id="windowSize.init"><code class="prettyprint lang-javascript">init()</code></dt>
-	<dd>
-		<p>Initializes the windowSize object. See <a href="#windowSizeInitialization">windowSize Initialization</a> above.</p>
+				</td>
+				<td>Code to run after the window size is recalculated by the <a href="#windowSize.update"><code class="prettyprint lang-javascript">update</code></a> method below.</td>
+			</tr>
+			</tbody>
+		</table>
 	</dd>
 	<dt id="windowSize.update"><code class="prettyprint lang-javascript">update()</code></dt>
 	<dd>
