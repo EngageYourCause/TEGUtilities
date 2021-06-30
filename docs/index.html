@@ -17,6 +17,10 @@
 			max-width: 60rem;
 		}
 
+		h1 + h1 {
+			display: none;
+		}
+
 		td,
 		th {
 			padding: 4pt;
@@ -87,7 +91,7 @@
 </pre>
 <h2>Methods</h2>
 <dl>
-	<dt id="between"><code class="prettyprint lang-javascript">between( value, minimum, maximum )</code></dt>
+	<dt id="between"><code class="prettyprint lang-javascript">between( [<em>value</em>, <em>minimum</em>, <em>maximum</em>] )</code></dt>
 	<dd>
 		<p>Returns <code class="prettyprint lang-javascript">true</code> if <code class="prettyprint lang-javascript">value</code> is strictly between
 			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code>.
@@ -135,11 +139,12 @@
 			</tbody>
 		</table>
 	</dd>
-	<dt id="betweenInclude"><code class="prettyprint lang-javascript">betweenInclude( value, minimum, maximum, include )</code></dt>
+	<dt id="betweeninclude"><code class="prettyprint lang-javascript">betweenInclude( [<em>value</em>, <em>minimum</em>, <em>maximum</em>, <em>include</em>] )</code></dt>
 	<dd>
-		<p>Returns <code class="prettyprint lang-javascript">true</code> if <code class="prettyprint lang-javascript">value</code> is strictly between
-			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code>.
-		</p>
+		<p>Returns <code class="prettyprint lang-javascript">true</code> if <code class="prettyprint lang-javascript">value</code> is between
+			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code>. The <code class="prettyprint lang-javascript">include</code> parameter determines if the
+			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code> values are included in the acceptable range.</p>
+		<p>The parameters are heavily bullet-proofed, just for fun. Everything has a default and the <code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code> values will be swapped, if necessary. As a result, all the parameters are optional, which is kind of useless, but at least it won&rsquo;t crash.</p>
 		<table>
 			<thead>
 			<tr>
@@ -185,7 +190,7 @@
 			</tbody>
 		</table>
 	</dd>
-	<dt><code class="prettyprint lang-javascript">debounce( originalFunction, timout, otherArgs )</code></dt>
+	<dt><code class="prettyprint lang-javascript">debounce( <em>originalFunction</em>, <em>timout</em>[, <em>otherArgs</em>] )</code></dt>
 	<dd>
 		<p>Returns a debounced function which is prevented from running more than once in <code class="prettyprint lang-javascript">timout</code> milliseconds.</p>
 		<table>
@@ -198,6 +203,9 @@
 					Type
 				</th>
 				<th>
+					Required
+				</th>
+				<th>
 					Description
 				</th>
 			</tr>
@@ -206,22 +214,25 @@
 			<tr>
 				<td><code class="prettyprint lang-javascript">originalFunction</code></td>
 				<td>Function</td>
+				<td>Required</td>
 				<td>The function to debounce.</td>
 			</tr>
 			<tr>
 				<td><code class="prettyprint lang-javascript">timeout</code></td>
 				<td>Number</td>
+				<td>Required</td>
 				<td>The number of milliseconds to wait before allowing <code class="prettyprint lang-javascript">originalFunction</code> to run again.</td>
 			</tr>
 			<tr>
 				<td><code class="prettyprint lang-javascript">otherArgs</code></td>
 				<td>Array</td>
+				<td>Optional</td>
 				<td>An array of values passed to <code class="prettyprint lang-javascript">originalFunction</code> as parameters.</td>
 			</tr>
 			</tbody>
 		</table>
 	</dd>
-	<dt><code class="prettyprint lang-javascript">throttle( originalFunction, timout, otherArgs )</code></dt>
+	<dt><code class="prettyprint lang-javascript">throttle( <em>originalFunction</em>, <em>timout</em>[, <em>otherArgs</em>] )</code></dt>
 	<dd>
 		<p>Returns a throttled function which will run once and then not again for <code class="prettyprint lang-javascript">timout</code> milliseconds.</p>
 		<table>
@@ -234,6 +245,9 @@
 					Type
 				</th>
 				<th>
+					Required
+				</th>
+				<th>
 					Description
 				</th>
 			</tr>
@@ -242,16 +256,19 @@
 			<tr>
 				<td><code class="prettyprint lang-javascript">originalFunction</code></td>
 				<td>Function</td>
+				<td>Required</td>
 				<td>The function to throttle.</td>
 			</tr>
 			<tr>
 				<td><code class="prettyprint lang-javascript">timeout</code></td>
 				<td>Number</td>
+				<td>Required</td>
 				<td>The number of milliseconds to wait before allowing <code class="prettyprint lang-javascript">originalFunction</code> to run again.</td>
 			</tr>
 			<tr>
 				<td><code class="prettyprint lang-javascript">otherArgs</code></td>
 				<td>Array</td>
+				<td>Optional</td>
 				<td>An array of values passed to <code class="prettyprint lang-javascript">originalFunction</code> as parameters.</td>
 			</tr>
 			</tbody>
@@ -260,7 +277,7 @@
 </dl>
 <h2 id="constants">Constants</h2>
 <p>All four constants are convenience values for the <code class="prettyprint lang-javascript">include</code> parameter of the
-	<code class="prettyprint lang-javascript">betweenInclude()</code> method above.
+	<a href="#betweeninclude"><code class="prettyprint lang-javascript">betweenInclude()</code></a> method above.
 </p>
 <table>
 	<thead>
@@ -294,13 +311,13 @@
 	</tbody>
 </table>
 <h2>Objects</h2>
-<h3 id="windowSize">windowSize</h3>
+<h3 id="windowsize">windowSize</h3>
 <p>Provides easy window size detection.</p>
-<h4 id="windowSizeInitialization">Initialization</h4>
+<h4 id="windowsizeinitialization">windowSize Initialization</h4>
 <p>Initialize the <code class="prettyprint lang-javascript">windowSize</code> object with a call to <code class="prettyprint lang-javascript">init({options. . . })</code> in a
 	<code class="prettyprint lang-html">&lt;script></code> element or
 	<code class="prettyprint lang-javascript">.js</code> file. See
-	<code class="prettyprint lang-javascript"><a href="#windowSizeOptions">options</a></code> below.
+	<code class="prettyprint lang-javascript"><a href="#windowsizeoptions">options</a></code> below.
 </p>
 <pre class="prettyprint lang-javascript">
 &lt;!-- This is the initialization script from test/windowSizeExample.html -->
@@ -321,43 +338,43 @@
    * it's best to use the throttle method (see below) so you don't use
    * too many resources.
    */
-  window.onresize = tu.throttle(tu.windowSize.update, 300);
+  window.onresize = tu.throttle(tu.windowsizeupdate, 300);
 &lt;/script>
 </pre>
-<h3 id="windowSizeProperties">windowSize Properties</h3>
+<h3 id="windowsizeproperties">windowSize Properties</h3>
 <p>See the
 	<a href="#inclusive"><code class="prettyprint lang-javascript">inclusive</code></a> option below.
 </p>
 <dl>
-	<dt id="isSmall"><code class="prettyprint lang-javascript">isSmall</code></dt>
+	<dt id="issmall"><code class="prettyprint lang-javascript">isSmall</code></dt>
 	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window is smaller than or equal to
-		<a href="#smallMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.smallMaxWidth</code></a>.
+		<a href="#smallmaxwidth"><code class="prettyprint lang-javascript">windowSize.options.smallMaxWidth</code></a>.
 	</dd>
-	<dt id="isMedium"><code class="prettyprint lang-javascript">isMedium</code></dt>
+	<dt id="ismedium"><code class="prettyprint lang-javascript">isMedium</code></dt>
 	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window width is between
-		<a href="#smallMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.smallMaxWidth</code></a> and
-		<a href="#mediumMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.mediumMaxWidth</code></a>.
+		<a href="#smallmaxwidth"><code class="prettyprint lang-javascript">windowSize.options.smallMaxWidth</code></a> and
+		<a href="#mediummaxwidth"><code class="prettyprint lang-javascript">windowSize.options.mediumMaxWidth</code></a>.
 	</dd>
-	<dt id="isLarge"><code class="prettyprint lang-javascript">isLarge</code></dt>
+	<dt id="islarge"><code class="prettyprint lang-javascript">isLarge</code></dt>
 	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window width is between
-		<a href="#mediumMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.mediumMaxWidth</code></a> and
-		<a href="#largeMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.largeMaxWidth</code></a>.
+		<a href="#mediummaxwidth"><code class="prettyprint lang-javascript">windowSize.options.mediumMaxWidth</code></a> and
+		<a href="#largemaxwidth"><code class="prettyprint lang-javascript">windowSize.options.largeMaxWidth</code></a>.
 	</dd>
-	<dt id="isLarger"><code class="prettyprint lang-javascript">isLarger</code></dt>
+	<dt id="islarger"><code class="prettyprint lang-javascript">isLarger</code></dt>
 	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window is larger than
-		<a href="#largeMaxWidth"><code class="prettyprint lang-javascript">windowSize.options.largeMaxWidth</code></a>. This comparison is not affected by the
+		<a href="#largemaxwidth"><code class="prettyprint lang-javascript">windowSize.options.largeMaxWidth</code></a>. This comparison is not affected by the
 		<a href="#inclusive"><code class="prettyprint lang-javascript">inclusive</code></a> option above as there is only the &ldquo;smaller&rdquo; value to compare against.
 	</dd>
-	<dt id="isTall"><code class="prettyprint lang-javascript">isTall</code></dt>
+	<dt id="istall"><code class="prettyprint lang-javascript">isTall</code></dt>
 	<dd><code class="prettyprint lang-javascript">true</code> if the viewing window is taller than
-		<a href="#tallMinHeight"><code class="prettyprint lang-javascript">windowSize.options.tallMinHeight</code></a>.
+		<a href="#tallminheight"><code class="prettyprint lang-javascript">windowSize.options.tallMinHeight</code></a>.
 	</dd>
 </dl>
-<h3 id="windowSizeMethods">windowSize Methods</h3>
+<h3 id="windowsizemethods">windowSize Methods</h3>
 <dl>
-	<dt id="windowSize.init"><code class="prettyprint lang-javascript">init( options )</code></dt>
+	<dt id="windowsizeinit"><code class="prettyprint lang-javascript">init( [<em>options</em>] )</code></dt>
 	<dd>
-		<p>Initializes the windowSize object. See <a href="#windowSizeInitialization">windowSize Initialization</a> above.</p>
+		<p>Initializes the windowSize object. See <a href="#windowsizeinitialization">windowSize Initialization</a> above.</p>
 		<table>
 			<thead>
 			<tr>
@@ -399,13 +416,13 @@
   }
 </pre>
 				</td>
-				<td>A collection of values used to configure the view pane size breakpoints. See <a href="#windowSizeOptions"><code class="prettyprint lang-javascript">Options</code></a> below.</td>
+				<td>A collection of values used to configure the view pane size breakpoints. See <a href="#windowsizeoptions"><code class="prettyprint lang-javascript">Options</code></a> below.</td>
 			</tr>
 			</tbody>
 		</table>
-		<h4 id="windowSizeOptions">Options</h4>
+		<h4 id="windowsizeoptions">Options</h4>
 		<p>The <code class="prettyprint lang-javascript">options</code> parameter is a set of values to determine what view port sizes fit in to which of the categories defined is
-			<a href="#windowSizeProperties"><code class="prettyprint lang-javascript">Properties</code></a> above.</p>
+			<a href="#windowsizeproperties"><code class="prettyprint lang-javascript">Properties</code></a> above.</p>
 		<table>
 			<thead>
 			<tr>
@@ -425,31 +442,31 @@
 			</thead>
 			<tbody>
 			<tr>
-				<td id="smallMaxWidth">smallMaxWidth</td>
+				<td id="smallmaxwidth"><code class="prettyprint lang-javascript">smallMaxWidth</code></td>
 				<td>Number</td>
 				<td><code class="prettyprint lang-javascript">740</code></td>
 				<td>Maximum width in pixels of a &quot;small&quot; screen like a smartphone or tablet in portrait orientation.</td>
 			</tr>
 			<tr>
-				<td id="mediumMaxWidth">mediumMaxWidth</td>
+				<td id="mediummaxwidth"><code class="prettyprint lang-javascript">mediumMaxWidth</code> </td>
 				<td>Number</td>
 				<td><code class="prettyprint lang-javascript">1024</code></td>
 				<td>Maximum width in pixels of a &quot;medium&quot; screen like a tablet in landscape orientation.</td>
 			</tr>
 			<tr>
-				<td id="largeMaxWidth">largeMaxWidth</td>
+				<td id="largemaxwidth"><code class="prettyprint lang-javascript">largeMaxWidth</code> </td>
 				<td>Number</td>
 				<td><code class="prettyprint lang-javascript">1024</code></td>
 				<td>Maximum width in pixels of a &quot;large&quot; screen like a desktop computer screen.</td>
 			</tr>
 			<tr>
-				<td id="tallMinHeight">tallMinHeight</td>
+				<td id="tallminheight"><code class="prettyprint lang-javascript">tallMinHeight</code> </td>
 				<td>Number</td>
 				<td><code class="prettyprint lang-javascript">1024</code></td>
 				<td>Minimum height in pixels of a &quot;tall&quot; screen like a desktop computer screen in portrait view.</td>
 			</tr>
 			<tr>
-				<td id="inclusive">inclusive</td>
+				<td id="inclusive"><code class="prettyprint lang-javascript">inclusive</code> </td>
 				<td>Boolean</td>
 				<td><code class="prettyprint lang-javascript">true</code></td>
 				<td>
@@ -467,11 +484,11 @@ if (inclusive) {
          size <span class="emphasis"><</span> maximum;
 }
 </pre>
-					<p>See the method <a href="#betweenInclusive"><code class="prettyprint lang-javascript">betweenInclusive</code></a> below.</p>
+					<p>See the method <a href="#betweeninclude"><code class="prettyprint lang-javascript">betweenInclude()</code></a> above.</p>
 				</td>
 			</tr>
 			<tr>
-				<td id="afterWindowSize">afterWindowSize</td>
+				<td id="afterwindowsize"><code class="prettyprint lang-javascript">afterWindowSize()</code> </td>
 				<td>Function</td>
 				<td>
 <pre class="prettyprint lang-javascript">
@@ -484,15 +501,15 @@ function() {
 }
 </pre>
 				</td>
-				<td>Code to run after the window size is recalculated by the <a href="#windowSize.update"><code class="prettyprint lang-javascript">update</code></a> method below.</td>
+				<td>Code to run after the window size is recalculated by the <a href="#windowsizeupdate"><code class="prettyprint lang-javascript">update</code></a> method below.</td>
 			</tr>
 			</tbody>
 		</table>
 	</dd>
-	<dt id="windowSize.update"><code class="prettyprint lang-javascript">update()</code></dt>
+	<dt id="windowsizeupdate"><code class="prettyprint lang-javascript">update()</code></dt>
 	<dd>
 		<p>Updates the window size flags. Designed to be run as the <code class="prettyprint lang-javascript">window.onresize</code> event handler. See
-			<a href="#windowSizeProperties">windowSize Properties</a> above.
+			<a href="#windowsizeproperties">windowSize Properties</a> above.
 		</p>
 	</dd>
 </dl>
