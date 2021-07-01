@@ -86,7 +86,7 @@ Provides easy window size detection.
 
 #### Initialization
 
-Initialize the `windowSize` object with a call to `init()` in a `<script>` element or `.js` file. See `[options](#windowSizeOptions)` below.
+Initialize the `windowSize` object with a call to `init()` in a `<script>` element or `.js` file. See [`options`](#options) below.
 
 ```javascript
   // This is the initialization script from test/windowSizeExample.html
@@ -111,25 +111,25 @@ Initialize the `windowSize` object with a call to `init()` in a `<script>` eleme
 
 ### windowSize Properties
 
-See the [`inclusive`](#inclusive) option below.
+See the `inclusive` option below.
 
 | Property | Description |
 |---|---|
-| `isSmall` | `true` if the viewing window is smaller than or equal to [`windowSize.options.smallMaxWidth`](#smallMaxWidth).|
-| `isMedium` | `true` if the viewing window width is between [`windowSize.options.smallMaxWidth`](#smallMaxWidth) and [`windowSize.options.mediumMaxWidth`](#mediumMaxWidth). |
-| `isLarge` | `true` if the viewing window width is between [`windowSize.options.mediumMaxWidth`](#mediumMaxWidth) and [`windowSize.options.largeMaxWidth`](#largeMaxWidth). |
-| `isLarger` | `true` if the viewing window is larger than [`windowSize.options.largeMaxWidth`](#largeMaxWidth). This comparison is not affected by the [`inclusive`](#inclusive) option above as there is only the “smaller” value to compare against. |
-| `isTall` | `true` if the viewing window is taller than [`windowSize.options.tallMinHeight`](#tallMinHeight). |
+| `isSmall` | `true` if the viewing window is smaller than or equal to `windowSize.options.smallMaxWidth`.|
+| `isMedium` | `true` if the viewing window width is between `windowSize.options.smallMaxWidth` and `windowSize.options.mediumMaxWidth`. |
+| `isLarge` | `true` if the viewing window width is between `windowSize.options.mediumMaxWidth` and `windowSize.options.largeMaxWidth`. |
+| `isLarger` | `true` if the viewing window is larger than `windowSize.options.largeMaxWidth`. This comparison is not affected by the `inclusive` option above as there is only the “smaller” value to compare against. |
+| `isTall` | `true` if the viewing window is taller than `windowSize.options.tallMinHeight`. |
 
 ### windowSize Methods
 
 #### `init(options)`
 
-Initializes the windowSize object. See [windowSize Initialization](#windowSizeInitialization) above.
+Initializes the windowSize object. See [windowSize Initialization](#initialization) above.
 
 | Parameter | Type | Description |
 |---|---|---|
-| `option` | Collection | A collection of values to configure `windowSize`. See Options below. |
+| `options` | Collection | A collection of values to configure `windowSize`. See Options below. |
 
 ##### Options
 
@@ -141,10 +141,10 @@ The `options` parameter is a set of values to determine what view port sizes fit
 | `mediumMaxWidth` | Number | `1024` | Maximum width in pixels of a "medium" screen like a tablet in landscape orientation. |
 | `largeMaxWidth` | Number | `1024` | Maximum width in pixels of a "large" screen like a desktop computer screen. |
 | `tallMinHeight` | Number | `1024` | Minimum height in pixels of a "tall" screen like a desktop computer screen in portrait view.|
-| `inclusive` | Boolean | `true` | Whether the break points above should be included in the size comparison. If `true`, the larger number will be included in the accepted range of sizes. See [`betweenInclusive`](#betweenInclusive) above. |
-| afterWindowSize | Function | `function(){}` | Code to run after the window size is recalculated by the [`update`](#windowSize.update) method below. |
+| `inclusive` | Boolean | `true` | Whether the break points above should be included in the size comparison. If `true`, the larger number will be included in the accepted range of sizes. See [`betweeninclude`](#betweeninclude-value-minimum-maximum-include-) above. |
+| afterWindowSize | Function | `function(){}` | Code to run after the window size is recalculated by the [`update`](#update) method below. |
 
 
 #### `update()`
 
-Updates the window size flags. Designed to be run as the `window.onresize` event handler. See [windowSize Properties](#windowSizeProperties) above.
+Updates the window size flags. Designed to be run as the `window.onresize` event handler. See [windowSize Properties](#windowsize-properties) above.
