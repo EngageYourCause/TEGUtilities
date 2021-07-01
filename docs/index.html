@@ -10,64 +10,64 @@
 	<meta name="keywords" content="javascript, library, quiz, trivia, form" />
 	<meta name="description" content="Creates additional HTML structure and adds functionality to fake pagination of a single page's content." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<style>
-		body {
-			background: white;
-			margin: 0 auto;
-			max-width: 60rem;
-		}
-
-		h1 + h1 {
-			display: none;
-		}
-
-		td,
-		th {
-			padding: 4pt;
-			vertical-align: top;
-		}
-
-		pre {
-			font-size: smaller;
-			max-width: 800px;
-			overflow: auto;
-		}
-
-		td[colspan] > pre.prettyprint.lang-javascript.prettyprinted {
-			max-width: 100%;
-		}
-
-		td > pre.prettyprint.lang-javascript.prettyprinted {
-			max-width: 20rem;
-			padding: .5rem;
-		}
-
-		tr:nth-child(odd) {
-			background: lightgray;
-		}
-
-		tr:nth-child(odd) td[colspan] {
-			background: white;
-		}
-
-		dt {
-			margin-top: 10pt;
-		}
-
-		.emphasis,
-		.emphasis .pun {
-			background: gray;
-			color: yellow;
-		}
-
-		/* placeholder selectors for IDE convenience */
-		.prettyprint, .lang-javascript, .lang-html {
-			/* no actual styles, just used  to trigger autocomplete in my IDE */
-		}
-	</style>
-	<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 </head>
 <body>
+<style>
+	body {
+		background: white;
+		margin: 0 auto;
+		max-width: 60rem;
+	}
+
+	h1 + h1 {
+		display: none;
+	}
+
+	td,
+	th {
+		padding: 4pt;
+		vertical-align: top;
+	}
+
+	pre {
+		font-size: smaller;
+		max-width: 800px;
+		overflow: auto;
+	}
+
+	td[colspan] > pre.prettyprint.lang-javascript.prettyprinted {
+		max-width: 100%;
+	}
+
+	td > pre.prettyprint.lang-javascript.prettyprinted {
+		max-width: 20rem;
+		padding: .5rem;
+	}
+
+	tr:nth-child(odd) {
+		background: lightgray;
+	}
+
+	tr:nth-child(odd) td[colspan] {
+		background: white;
+	}
+
+	dt {
+		margin-top: 10pt;
+	}
+
+	.emphasis,
+	.emphasis .pun {
+		background: gray;
+		color: yellow;
+	}
+
+	/* placeholder selectors for IDE convenience */
+	.prettyprint, .lang-javascript, .lang-html {
+		/* no actual styles, just used  to trigger autocomplete in my IDE */
+	}
+</style>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <h1>TEG Utilities</h1>
 <p>A collection of useful code.</p>
 <h2>Requires</h2>
