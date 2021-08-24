@@ -34,7 +34,6 @@ class TEGUtilities {
 
 			/**
 			 * windowSize.update
-			 * @param {windowSize} windowSize
 			 */
 			update : function() {
 				if (windowSize.options.inclusive) {
@@ -74,7 +73,7 @@ class TEGUtilities {
 
 	/**
 	 * between
-	 * Reurns TRUE if value is strictly between minimum and maximum.
+	 * Returns TRUE if value is strictly between minimum and maximum.
 	 *
 	 * @param {number} value, number to test
 	 * @param {number} minimum, lowest point of acceptable range
@@ -87,7 +86,7 @@ class TEGUtilities {
 
 	/**
 	 * betweenInclude
-	 * Reurns TRUE if value is between minimum and maximum allowing optional inclusion
+	 * Returns TRUE if value is between minimum and maximum allowing optional inclusion
 	 * of either or both limits.
 	 *
 	 * @param {number} value, number to test
