@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--suppress JSUnresolvedLibraryURL -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TEG Utilities QUnit Tests</title>
+	<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.16.0.css">
+	<script src="https://code.jquery.com/qunit/qunit-2.16.0.js" integrity="sha256-lICrUxRopy6OGP/GNqW+v7FTK14pcJXy5ytnZ2g8cKA=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="../src/TEGUtilities.js"></script>
+	<script>
+		window.tu = new TEGUtilities();
+		window.tu.windowSize.init();
+
+		window.debounceCount = 0;
+		window.throttleCount = 0;
+		window.debounced = TEGUtilities.debounce(function() {
+			                                         window.debounceCount++;
+		                                         },
+		                                         2000);
+		window.throttled = TEGUtilities.throttle(function() {
+			                                         window.throttleCount++;
+		                                         },
+		                                         2000);
+
+		function runDebounce(callback) {
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			callback(null);
+		}
+
+		const {test} = QUnit;
+
+		test('between()', assert => {
+			assert.true(TEGUtilities.between(1, 0, 2), '1 is between 0 and 2');
+			assert.false(TEGUtilities.between(2, 0, 2), '2 is not between 0 and 2');
+			assert.false(TEGUtilities.between(0, 0, 0), '0 is not between 0 and 0');
+		});
+		test('betweenInclude()', assert => {
+			assert.true(TEGUtilities.betweenInclude(0, 0, 0, TEGUtilities.BTWN_INCL_BOTH), '0 is between 0 and 0 inclusive');
+			assert.false(TEGUtilities.betweenInclude(-2, 0, 2, TEGUtilities.BTWN_INCL_BOTH), '-2 is not between 0 and 2 inclusive');
+			assert.true(TEGUtilities.betweenInclude(1, 0, 2), '1 is between 0 and 2 exclusive');
+			assert.false(TEGUtilities.betweenInclude(2, 0, 2), '2 is not between 0 and 2 default exclusive');
+			assert.false(TEGUtilities.betweenInclude(2, 0, 2, TEGUtilities.BTWN_INCL_NONE), '2 is not between 0 and 2 explicit exclusive');
+			assert.true(TEGUtilities.betweenInclude(2, 0, 2, TEGUtilities.BTWN_INCL_HIGHER), '2 is between 0 and 2 include higher');
+			assert.true(TEGUtilities.betweenInclude(0, 0, 2, TEGUtilities.BTWN_INCL_LOWER), '0 is between 0 and 2 include lower');
+		});
+
+		QUnit.module('TEG Utilities QUnit Tests: windowSize');
+		test('windowSize', assert => {
+			assert.equal(windowSize.isSmall, window.innerWidth <= 740, `isSmall  is ${windowSize.isSmall}`);
+			assert.equal(windowSize.isMedium, window.innerWidth > 740 && window.innerWidth <= 1024, `isMedium is ${windowSize.isMedium}`);
+			assert.equal(windowSize.isLarge, window.innerWidth > 1024 && window.innerWidth <= 2048, `isLarge is ${windowSize.isLarge}`);
+			assert.equal(windowSize.isLarger, window.innerWidth > 2048, `isLarger is ${windowSize.isLarger}`);
+			assert.equal(windowSize.isTall, window.innerHeight >= 820, `isTall is ${windowSize.isTall}`);
+		});
+
+		QUnit.module('TEG Utilities QUnit Tests: preloadImages()');
+		test('preloadImages()', assert => {
+			let isLoaded  = true,
+			    loadedSrc = [];
+			// run the preloader and check if all the elements in the returned array have a source in the list of images
+			TEGUtilities.preloadImages('preloadImages/carousel-defenders1.jpg', 'preloadImages/ff-20.jpg', 'preloadImages/hero-tscl-2.jpg')
+			            .forEach(function(element) {
+				            let value = element.attributes.src.value;
+				            loadedSrc.push(value);
+
+				            if (!['preloadImages/carousel-defenders1.jpg', 'preloadImages/ff-20.jpg', 'preloadImages/hero-tscl-2.jpg'].includes(value)) {
+					            isLoaded = false;
+				            }
+			            });
+			// check if all members of the list of images are in the array taken from the generated img elements
+			['preloadImages/carousel-defenders1.jpg', 'preloadImages/ff-20.jpg', 'preloadImages/hero-tscl-2.jpg']
+				.forEach(function(currentSrc) {
+
+					if (!loadedSrc.includes(currentSrc)) {
+						isLoaded = false;
+					}
+				});
+			assert.true(isLoaded, 'object returned by preloadImages() contains all three images');
+		});
+
+		QUnit.module('TEGUtilities QUnit Tests: throttle() and debounce()');
+
+		QUnit.test('debounced function', assert => {
+			const done = assert.async();
+			assert.equal(window.debounced.toString().match(/originalFunction.apply\(this, otherArgs\)/).length, 1, 'debounced() is a debounced function');
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			window.debounced();
+			setTimeout(() => {
+				           done();
+				           assert.equal(window.debounceCount, 1, `debounced() run ${window.debounceCount} times`);
+			           },
+			           3000);
+		});
+
+		QUnit.test('throttled function', assert => {
+			const done = assert.async();
+			assert.equal(window.throttled.toString().match(/originalFunction.apply\(this, otherArgs\)/).length, 1, 'throttled() is a throttled function');
+			window.throttled();
+			window.throttled();
+			window.throttled();
+			window.throttled();
+			window.throttled();
+			window.throttled();
+			setTimeout(() => {
+				           done();
+				           assert.equal(window.throttleCount, 1, `throttled() run ${window.throttleCount} times`);
+			           },
+			           3000);
+		 });
+	</script>
+</head>
+<body>
+<div id="qunit"></div>
+</body>
+</html>
