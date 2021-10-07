@@ -2,10 +2,6 @@ class TEGUtilities {
 	constructor() {
 		let __instance = this;
 
-		__instance.semaphore = {
-
-		}
-
 		__instance.windowSize = {
 			// window size flags
 			isSmall  : false,
