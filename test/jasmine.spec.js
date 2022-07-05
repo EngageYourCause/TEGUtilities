@@ -186,4 +186,17 @@ describe('TEG Utilities', function() {
 			expect(isLoaded).toBeTrue();
 		});
 	}); // end describe('preloadImages()')
+
+	describe('isEmpty', () => {
+		beforeAll(() => {
+			empty = {};
+			full = {
+				'foo': 'bar'
+			};
+		});
+		it('should return true for an empty object', () => {
+			expect(empty.isEmpty()).toBeTrue();
+			expect(full.isEmpty()).toBeFalse();
+		}); // end it('should return true for an empty object')
+	}); // end describe('isEmpty')
 });

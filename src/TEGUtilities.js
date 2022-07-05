@@ -57,6 +57,9 @@ class TEGUtilities {
 				window.windowSize.update();
 			}, // end windowSize.init()
 		}; // end windowSize
+
+		// identify empty objects
+		if (typeof Object.prototype.isEmpty === 'undefined') Object.prototype.isEmpty = function() { return Object.entries(this).length === 0; }
 	} // end constructor()
 
 	static get BTWN_INCL_NONE() { return 0; }
@@ -179,14 +182,18 @@ class TEGUtilities {
 	 * @returns {Array} a jQuery object containing the preloaded images
 	 */
 	static preloadImages() {
-		let returnImages = ['placeholder'];
+		let returnImages = [];
 
 		for (let offset in arguments) {
-			let newImage = document.createElement('img');
-			newImage.setAttribute('src', arguments[offset]);
-			returnImages.push(newImage);
+			let sourcePath = arguments[offset];
+
+			if (typeof sourcePath === 'string') {
+				let newImage = document.createElement('img');
+				newImage.setAttribute('src', sourcePath);
+				returnImages.push(newImage);
+			}
 		}
 
-		return returnImages.slice(1);
+		return returnImages;
 	}
 } // end TEGUtilities
