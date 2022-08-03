@@ -272,6 +272,51 @@
 	</dd>
 	<dt><code class="prettyprint lang-javascript">preloadImages( <em>imageURL</em>[, <em>imageURL</em>, &hellip;] )</code></dt>
 	<dd>Takes one or more URLs and loads them into <code class="prettyprint lang-javascript">img</code> elements to force the browser to load the files in the background for faster display in an active interface.</dd>
+	<dt><code class="prettyprint lang-javascript">addCMSLandmarks( [<em>['array', 'of', 'valid', 'values']</em>] )</code></dt>
+	<dd>
+		<p>Scans the DOM for elements with a class name beginning with <code class="prettyprint lang-javascript">aria-landmark-</code>. The prefix is stripped and the resulting string is set as the value of a new
+		<code class="prettyprint lang-javascript">role</code> attribute, unless that attribute is already present. Any Content Management System (CMS) will generate its own HTML. It should also allow the user to set additional class names. This feature allows the developer to leverage class names to programmatically add <code class="prettyprint lang-javascript">role</code> attributes as needed.</p>
+		<table>
+			<thead>
+			<tr>
+				<th>
+					Parameter
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Default
+				</th>
+				<th>
+					Description
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code class="prettyprint lang-javascript">allowed</code></td>
+				<td>Array of Strings</td>
+				<td><code class="prettyprint lang-javascript">['banner',
+					'complementary',
+					'contentinfo',
+					'form',
+					'main',
+					'navigation',
+					'region',
+					'search',
+					'alert',
+					'log',
+					'marquee',
+					'status',
+					'timer']</code>
+				</td>
+				<td>List of allowed ARIA landmarks.</td>
+			</tr>
+			</tbody>
+		</table>
+		<p>See <a href="https://www.w3.org/WAI/GL/wiki/Using_ARIA_landmarks_to_identify_regions_of_a_page">W3C: Using ARIA landmarks to identify regions of a page</a>.</p>
+	</dd>
 </dl>
 <h2 id="constants">Constants</h2>
 <p>All four constants are convenience values for the <code class="prettyprint lang-javascript">include</code> parameter of the

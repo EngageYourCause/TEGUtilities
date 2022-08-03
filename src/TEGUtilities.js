@@ -4,22 +4,22 @@ class TEGUtilities {
 
 		__instance.windowSize = {
 			// window size flags
-			isSmall  : false,
-			isMedium : false,
-			isLarge  : false,
-			isLarger : false,
-			isTall   : false,
+			isSmall: false,
+			isMedium: false,
+			isLarge: false,
+			isLarger: false,
+			isTall: false,
 
 			// options for calculating the flags
-			options : {
-				smallMaxWidth  : 740,
-				mediumMaxWidth : 1024,
-				largeMaxWidth  : 2048,
-				tallMinHeight  : 820,
-				inclusive      : true, // should the window size comparisons include the break points?
+			options: {
+				smallMaxWidth: 740,
+				mediumMaxWidth: 1024,
+				largeMaxWidth: 2048,
+				tallMinHeight: 820,
+				inclusive: true, // should the window size comparisons include the break points?
 
 				// allow customizable callback
-				afterWindowSize : function() {
+				afterWindowSize: function () {
 
 					if (console) {
 						console.log('The default TEGUtilities.windowSize.afterWindowSize() method does nothing.');
@@ -31,16 +31,20 @@ class TEGUtilities {
 			/**
 			 * windowSize.update
 			 */
-			update : function() {
+			update: function () {
 				if (windowSize.options.inclusive) {
 					windowSize.isSmall = window.innerWidth <= windowSize.options.smallMaxWidth;
-					windowSize.isMedium = TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.smallMaxWidth, windowSize.options.mediumMaxWidth, TEGUtilities.BTWN_INCL_HIGHER);
-					windowSize.isLarge = TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.mediumMaxWidth, windowSize.options.largeMaxWidth, TEGUtilities.BTWN_INCL_HIGHER);
+					windowSize.isMedium =
+							TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.smallMaxWidth, windowSize.options.mediumMaxWidth, TEGUtilities.BTWN_INCL_HIGHER);
+					windowSize.isLarge =
+							TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.mediumMaxWidth, windowSize.options.largeMaxWidth, TEGUtilities.BTWN_INCL_HIGHER);
 					windowSize.isTall = (window.innerHeight >= windowSize.options.tallMinHeight);
 				} else {
 					windowSize.isSmall = window.innerWidth < windowSize.options.smallMaxWidth;
-					windowSize.isMedium = TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.smallMaxWidth, windowSize.options.mediumMaxWidth, TEGUtilities.BTWN_INCL_NONE);
-					windowSize.isLarge = TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.mediumMaxWidth, windowSize.options.largeMaxWidth, TEGUtilities.BTWN_INCL_NONE);
+					windowSize.isMedium =
+							TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.smallMaxWidth, windowSize.options.mediumMaxWidth, TEGUtilities.BTWN_INCL_NONE);
+					windowSize.isLarge =
+							TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.mediumMaxWidth, windowSize.options.largeMaxWidth, TEGUtilities.BTWN_INCL_NONE);
 					windowSize.isTall = (window.innerHeight > windowSize.options.tallMinHeight);
 				}
 				windowSize.isLarger = window.innerWidth > windowSize.options.largeMaxWidth;
@@ -51,7 +55,7 @@ class TEGUtilities {
 			 * windowSize.init
 			 * @param {Object} Options
 			 */
-			init : function(Options) {
+			init: function (Options) {
 				this.options = {...this.options, ...Options};
 				window.windowSize = this;
 				window.windowSize.update();
@@ -59,7 +63,7 @@ class TEGUtilities {
 		}; // end windowSize
 
 		// identify empty objects
-		if (typeof Object.prototype.isEmpty === 'undefined') Object.prototype.isEmpty = function() { return Object.entries(this).length === 0; }
+		if (typeof Object.prototype.isEmpty === 'undefined') Object.prototype.isEmpty = function () { return Object.entries(this).length === 0; }
 	} // end constructor()
 
 	static get BTWN_INCL_NONE() { return 0; }
@@ -96,11 +100,11 @@ class TEGUtilities {
 	 */
 	static betweenInclude(value, minimum, maximum, inclusive) {
 		// bulletproof the arguments
-		const btwnValue   = value || 0,
-		      getMinimum  = minimum || 0,
-		      getMaximum  = maximum || 0,
-		      btwnMinimum = Math.min(getMinimum, getMaximum),
-		      btwnMaximum = Math.max(getMinimum, getMaximum);
+		const btwnValue = value || 0,
+				getMinimum = minimum || 0,
+				getMaximum = maximum || 0,
+				btwnMinimum = Math.min(getMinimum, getMaximum),
+				btwnMaximum = Math.max(getMinimum, getMaximum);
 		let btwnInclusive = inclusive || TEGUtilities.BTWN_INCL_NONE;
 
 		// if inclusive, do inclusive comparison
@@ -137,11 +141,11 @@ class TEGUtilities {
 		// make otherArgs optional
 		otherArgs = otherArgs || [];
 
-		return function() {
+		return function () {
 			// ignore all calls until there aren't any for the specified period
 			clearTimeout(timer);
 			// set a new timeout for the specified delay
-			timer = setTimeout(function() {
+			timer = setTimeout(function () {
 				// call the function in context and with additional arguments
 				originalFunction.apply(this, otherArgs);
 			}, timeout);
@@ -162,7 +166,7 @@ class TEGUtilities {
 		// make otherArgs optional
 		otherArgs = otherArgs || [];
 
-		return function() {
+		return function () {
 			if (!needInvoke) return false;
 
 			// prevent next run
@@ -170,7 +174,7 @@ class TEGUtilities {
 			// call the function in context and with additional arguments
 			originalFunction.apply(this, otherArgs);
 			// try again after the timeout
-			setTimeout(function() { needInvoke = true; }, timeout);
+			setTimeout(function () { needInvoke = true; }, timeout);
 		}; // end throttling wrapper
 	} // end throttle()
 
@@ -195,5 +199,33 @@ class TEGUtilities {
 		}
 
 		return returnImages;
+	}
+
+	static addCMSLandmarks(allowed = ['banner',
+	                                  'complementary',
+	                                  'contentinfo',
+	                                  'form',
+	                                  'main',
+	                                  'navigation',
+	                                  'region',
+	                                  'search',
+	                                  'alert',
+	                                  'log',
+	                                  'marquee',
+	                                  'status',
+	                                  'timer'])
+	{
+		document.querySelectorAll('[class*="aria-landmark-"]').forEach(function (element) {
+			element.classList.forEach(function (item) {
+				const roleValue = item.substring(item.indexOf('aria-landmark-') + 14);
+
+				if (item.indexOf('aria-landmark-') > -1 &&
+				    element.getAttribute('role') === null &&
+				    allowed.includes(roleValue))
+				{
+					element.setAttribute('role', roleValue)
+				}
+			});
+		});
 	}
 } // end TEGUtilities

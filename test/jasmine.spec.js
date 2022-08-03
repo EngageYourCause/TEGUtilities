@@ -199,4 +199,18 @@ describe('TEG Utilities', function() {
 			expect(full.isEmpty()).toBeFalse();
 		}); // end it('should return true for an empty object')
 	}); // end describe('isEmpty')
+
+	describe('addCMSLandmarks', () => {
+		beforeAll(() => {
+			TEGUtilities.addCMSLandmarks();
+		})
+		it('should add a role for valid landmark values', () => {
+			expect(document.querySelectorAll('[role="banner"]').length).toBe(1);
+			expect(document.querySelectorAll('[role="navigation"]').length).toBe(1);
+			expect(document.querySelectorAll('[role="contentinfo"]').length).toBe(1);
+		}); // end it('should add a role for valid landmark values')
+		it('should exclude invalid landmarks', () => {
+			expect(document.querySelector('[role="header"]')).toBeNull();
+		}); // end it('should exclude invalid landmarks')
+	}); // end describe('addCMSLandmarks')
 });
