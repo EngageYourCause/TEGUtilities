@@ -223,12 +223,23 @@ class TEGUtilities {
 	{
 		document.querySelectorAll('[class*="aria-landmark-"]').forEach(function (element) {
 			element.classList.forEach(function (item) {
-				const roleValue = item.substring(item.indexOf('aria-landmark-') + 14);
+				const isRole = item.indexOf('aria-landmark-') === 0,
+						roleValue = item.substring(item.indexOf('aria-landmark-') + 14),
+						isLabel = item.indexOf('aria-label-') === 0,
+						labelValue = item.substring(item.indexOf('aria-label-') + 11).replace(/[-_]/g, ' ');
 
-				if (element.getAttribute('role') === null &&
+				if (isRole &&
+				    element.getAttribute('role') === null &&
 				    allowed.includes(roleValue))
 				{
 					element.setAttribute('role', roleValue)
+				}
+
+				if (isLabel &&
+				    element.getAttribute('aria-label') === null &&
+				    labelValue !== null)
+				{
+					element.setAttribute('aria-label', labelValue);
 				}
 			});
 		});

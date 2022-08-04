@@ -138,9 +138,13 @@
 	<dt id="betweeninclude"><code class="prettyprint lang-javascript">betweenInclude( [<em>value</em>, <em>minimum</em>, <em>maximum</em>, <em>include</em>] )</code></dt>
 	<dd>
 		<p>Returns <code class="prettyprint lang-javascript">true</code> if <code class="prettyprint lang-javascript">value</code> is between
-			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code>. The <code class="prettyprint lang-javascript">include</code> parameter determines if the
-			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code> values are included in the acceptable range.</p>
-		<p>The parameters are heavily bullet-proofed, just for fun. Everything has a default and the <code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code> values will be swapped, if necessary. As a result, all the parameters are optional, which is kind of useless, but at least it won&rsquo;t crash.</p>
+			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code>. The
+			<code class="prettyprint lang-javascript">include</code> parameter determines if the
+			<code class="prettyprint lang-javascript">minimum</code> and <code class="prettyprint lang-javascript">maximum</code> values are included in the acceptable range.
+		</p>
+		<p>The parameters are heavily bullet-proofed, just for fun. Everything has a default and the <code class="prettyprint lang-javascript">minimum</code> and
+			<code class="prettyprint lang-javascript">maximum</code> values will be swapped, if necessary. As a result, all the parameters are optional, which is kind of useless, but at least it won&rsquo;t crash.
+		</p>
 		<table>
 			<thead>
 			<tr>
@@ -271,11 +275,23 @@
 		</table>
 	</dd>
 	<dt><code class="prettyprint lang-javascript">preloadImages( <em>imageURL</em>[, <em>imageURL</em>, &hellip;] )</code></dt>
-	<dd>Takes one or more URLs and loads them into <code class="prettyprint lang-javascript">img</code> elements to force the browser to load the files in the background for faster display in an active interface.</dd>
+	<dd>Takes one or more URLs and loads them into
+		<code class="prettyprint lang-javascript">img</code> elements to force the browser to load the files in the background for faster display in an active interface.
+	</dd>
 	<dt><code class="prettyprint lang-javascript">addCMSLandmarks( [<em>['array', 'of', 'valid', 'values']</em>] )</code></dt>
 	<dd>
-		<p>Scans the DOM for elements with a class name beginning with <code class="prettyprint lang-javascript">aria-landmark-</code>. The prefix is stripped and the resulting string is set as the value of a new
-		<code class="prettyprint lang-javascript">role</code> attribute, unless that attribute is already present. Any Content Management System (CMS) will generate its own HTML. It should also allow the user to set additional class names. This feature allows the developer to leverage class names to programmatically add <code class="prettyprint lang-javascript">role</code> attributes as needed.</p>
+		<p>Scans the DOM for elements with a class name beginning with <code class="prettyprint lang-javascript">aria-landmark-</code> and
+			<code class="prettyprint lang-javascript">aria-label-</code>.
+		</p>
+		<p>For
+			<code class="prettyprint lang-javascript">aria-landmark-</code>, the prefix is stripped and the resulting string is set as the value of a new
+			<code class="prettyprint lang-javascript">role</code> attribute, unless that attribute is already present. Any Content Management System (CMS) will generate its own HTML. It should also allow the user to set additional class names. This feature allows the developer to leverage class names to programmatically add
+			<code class="prettyprint lang-javascript">role</code> attributes as needed.
+		</p>
+		<p>If an element with an <code class="prettyprint lang-javascript">aria-landmark-</code> class name also has a class name with the prefix
+			<code class="prettyprint lang-javascript">aria-label-</code>, then an
+			<code class="prettyprint lang-javascript">aria-label</code> attribute will be added with the value provided. The label value will be altered to replace dash and underscore characters with spaces.
+		</p>
 		<table>
 			<thead>
 			<tr>
@@ -315,6 +331,26 @@
 			</tr>
 			</tbody>
 		</table>
+		<h3>Example:</h3>
+		<p>The function will change the following:</p>
+		<pre class="prettyprint lang-javascript">
+  &lt;div class=&quot;foo aria-landmark-region aria-label-my-region&quot;>...&lt;/div>
+  &lt;div class=&quot;bar aria-landmark-search&quot; role=&quot;banner&quot;>...&lt;/div>
+  &lt;div class=&quot;bar aria-label-fubar&quot;>...&lt;/div>
+</pre>
+		<p>. . .to this:</p>
+		<pre class="prettyprint lang-javascript">
+  &lt;div class=&quot;foo aria-landmark-region aria-label-my-region&quot; role=&quot;region&quot; aria-label=&quot;my region&quot;>...&lt;/div>
+  &lt;div class=&quot;bar aria-landmark-search&quot; role=&quot;banner&quot;>...&lt;/div>
+  &lt;div class=&quot;bar aria-label-fubar&quot;>...&lt;/div>
+</pre>
+		<p>The first <code class="prettyprint lang-javascript">div</code> is updated with a role specified by
+			<code class="prettyprint lang-javascript">aria-landmark-region</code> and an
+			<code class="prettyprint lang-javascript">aria-label</code> attribute specified by <code class="prettyprint lang-javascript">aria-label-my-region</code>. The second
+			<code class="prettyprint lang-javascript">div</code> is not modified since the <code class="prettyprint lang-javascript">role</code> attribute already exists. Multiple,
+			<code class="prettyprint lang-javascript">aria-landmark-</code> classes are ignored. The third <code class="prettyprint lang-javascript">div</code> is unchanged as it doesn&rsquo;t have a class name with the
+			<code class="prettyprint lang-javascript">aria-landmark-</code> prefix.
+		</p>
 		<p>See <a href="https://www.w3.org/WAI/GL/wiki/Using_ARIA_landmarks_to_identify_regions_of_a_page">W3C: Using ARIA landmarks to identify regions of a page</a>.</p>
 	</dd>
 </dl>
@@ -459,13 +495,16 @@
   }
 </pre>
 				</td>
-				<td>A collection of values used to configure the view pane size breakpoints. See <a href="#windowsizeoptions"><code class="prettyprint lang-javascript">Options</code></a> below.</td>
+				<td>A collection of values used to configure the view pane size breakpoints. See
+					<a href="#windowsizeoptions"><code class="prettyprint lang-javascript">Options</code></a> below.
+				</td>
 			</tr>
 			</tbody>
 		</table>
 		<h4 id="windowsizeoptions">Options</h4>
 		<p>The <code class="prettyprint lang-javascript">options</code> parameter is a set of values to determine what view port sizes fit in to which of the categories defined is
-			<a href="#windowsizeproperties"><code class="prettyprint lang-javascript">Properties</code></a> above.</p>
+			<a href="#windowsizeproperties"><code class="prettyprint lang-javascript">Properties</code></a> above.
+		</p>
 		<table>
 			<thead>
 			<tr>
@@ -491,25 +530,25 @@
 				<td>Maximum width in pixels of a &quot;small&quot; screen like a smartphone or tablet in portrait orientation.</td>
 			</tr>
 			<tr>
-				<td id="mediummaxwidth"><code class="prettyprint lang-javascript">mediumMaxWidth</code> </td>
+				<td id="mediummaxwidth"><code class="prettyprint lang-javascript">mediumMaxWidth</code></td>
 				<td>Number</td>
 				<td><code class="prettyprint lang-javascript">1024</code></td>
 				<td>Maximum width in pixels of a &quot;medium&quot; screen like a tablet in landscape orientation.</td>
 			</tr>
 			<tr>
-				<td id="largemaxwidth"><code class="prettyprint lang-javascript">largeMaxWidth</code> </td>
+				<td id="largemaxwidth"><code class="prettyprint lang-javascript">largeMaxWidth</code></td>
 				<td>Number</td>
 				<td><code class="prettyprint lang-javascript">1024</code></td>
 				<td>Maximum width in pixels of a &quot;large&quot; screen like a desktop computer screen.</td>
 			</tr>
 			<tr>
-				<td id="tallminheight"><code class="prettyprint lang-javascript">tallMinHeight</code> </td>
+				<td id="tallminheight"><code class="prettyprint lang-javascript">tallMinHeight</code></td>
 				<td>Number</td>
 				<td><code class="prettyprint lang-javascript">1024</code></td>
 				<td>Minimum height in pixels of a &quot;tall&quot; screen like a desktop computer screen in portrait view.</td>
 			</tr>
 			<tr>
-				<td id="inclusive"><code class="prettyprint lang-javascript">inclusive</code> </td>
+				<td id="inclusive"><code class="prettyprint lang-javascript">inclusive</code></td>
 				<td>Boolean</td>
 				<td><code class="prettyprint lang-javascript">true</code></td>
 				<td>
@@ -531,7 +570,7 @@ if (inclusive) {
 				</td>
 			</tr>
 			<tr>
-				<td id="afterwindowsize"><code class="prettyprint lang-javascript">afterWindowSize()</code> </td>
+				<td id="afterwindowsize"><code class="prettyprint lang-javascript">afterWindowSize()</code></td>
 				<td>Function</td>
 				<td>
 <pre class="prettyprint lang-javascript">

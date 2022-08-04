@@ -212,5 +212,8 @@ describe('TEG Utilities', function() {
 		it('should exclude invalid landmarks', () => {
 			expect(document.querySelector('[role="header"]')).toBeNull();
 		}); // end it('should exclude invalid landmarks')
+		it('should add aria-label', () => {
+			expect(document.querySelectorAll('[aria-label="fake navigation"]').length).toBe(1);
+		}); // end it('should ad aria-label')
 	}); // end describe('addCMSLandmarks')
 });
