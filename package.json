@@ -1,6 +1,9 @@
 {
    "title": "TEG Utilities",
-   "name": "TEGUtilities",
+   "name" : "teg-utilities",
+   "filename": "TEGUtilities",
+   "author"     : "Paul B. Joiner <paulj@engageyourcause.com>",
+   "description": "A few useful utilities for vanilla JavaScript.",
    "version": "1.1",
    "devDependencies": {
       "git-rev-sync": "^3.0.2",
