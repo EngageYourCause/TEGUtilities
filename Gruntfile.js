@@ -1,7 +1,6 @@
 const git = require('git-rev-sync');
 module.exports = function(grunt) {
-	const git        = require('git-rev-sync'),
-	      thisTag    = git.tag(),
+	const thisTag    = git.tag(),
 	      thisBranch = git.branch();
 
 	grunt.initConfig({
@@ -21,6 +20,7 @@ module.exports = function(grunt) {
 		                              '*   Date:   ' + grunt.template.today('yyyymmdd') + '\n' +
 		                              '*/\n',
 		                 postFix    : `_${thisTag}`,
+		                 postFixEN: `_${thisTag}`.replace(/\./g, '_'),
 		                 uglify     : {
 			                 options : {
 				                 banner    : '<%= banner %>',
@@ -43,6 +43,10 @@ module.exports = function(grunt) {
 						                 dest : 'dist/<%= pkg.filename %><%= postFix %>.min.js',
 					                 },
 					                 {
+						                 src  : 'dist/<%= pkg.filename %>.min.js',
+						                 dest : 'dist/<%= pkg.filename %><%= postFixEN %>_min.js',
+					                 },
+					                 {
 						                 src  : 'dist/<%= pkg.filename %>.min.js.map',
 						                 dest : 'dist/<%= pkg.filename %><%= postFix %>.min.js.map',
 					                 }
@@ -52,9 +56,7 @@ module.exports = function(grunt) {
 		                 }
 	                 });
 
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	// grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-copy');
+	require('load-grunt-tasks')(grunt);
 
 	// Default task(s).
 	grunt.registerTask('default', ['uglify', 'copy']);
