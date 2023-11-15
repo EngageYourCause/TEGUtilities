@@ -161,28 +161,14 @@ describe('TEG Utilities', function() {
 	describe('preloadImages()', function() {
 
 		it('should be preloaded', function() {
-			let isLoaded  = true,
-			    loadedSrc = [];
 
-			// run the preloader and check if all the elements in the returned array have a source in the list of images
-			TEGUtilities.preloadImages('preloadImages/carousel-defenders1.jpg', 'preloadImages/ff-20.jpg', 'preloadImages/hero-tscl-2.jpg')
-			      .forEach(function(element) {
-			      	let value = element.attributes.src.value;
-				      loadedSrc.push(value);
+			let isLoaded  = true;
 
-				      if (!['preloadImages/carousel-defenders1.jpg', 'preloadImages/ff-20.jpg', 'preloadImages/hero-tscl-2.jpg'].includes(value)) {
-					      isLoaded = false;
-				      }
-			      });
-
-			// check if all members of the list of images are in the array taken from the generated img elements
+			// run the preloader and check if all the elements exist in the head
+			TEGUtilities.preloadImages('preloadImages/carousel-defenders1.jpg', 'preloadImages/ff-20.jpg', 'preloadImages/hero-tscl-2.jpg');
 			['preloadImages/carousel-defenders1.jpg', 'preloadImages/ff-20.jpg', 'preloadImages/hero-tscl-2.jpg']
-				.forEach(function(currentSrc) {
+				.every(currentSrc => !!document.querySelector(`link[href="${currentSrc}"]`));
 
-					if (!loadedSrc.includes(currentSrc)) {
-						isLoaded = false;
-					}
-				});
 			expect(isLoaded).toBeTrue();
 		});
 	}); // end describe('preloadImages()')

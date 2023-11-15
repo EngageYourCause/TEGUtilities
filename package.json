@@ -4,7 +4,7 @@
    "filename": "TEGUtilities",
    "author": "Paul B. Joiner <paulj@engageyourcause.com>",
    "description": "A few useful utilities for vanilla JavaScript.",
-   "version": "1.1",
+   "version": "1.2",
    "devDependencies": {
       "git-rev-sync": "^3.0.2",
       "grunt": "^1.5.3",

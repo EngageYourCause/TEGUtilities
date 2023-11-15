@@ -4,19 +4,19 @@ class TEGUtilities {
 
 		__instance.windowSize = {
 			// window size flags
-			isSmall: false,
+			isSmall : false,
 			isMedium: false,
-			isLarge: false,
+			isLarge : false,
 			isLarger: false,
-			isTall: false,
+			isTall  : false,
 
 			// options for calculating the flags
 			options: {
-				smallMaxWidth: 740,
+				smallMaxWidth : 740,
 				mediumMaxWidth: 1024,
-				largeMaxWidth: 2048,
-				tallMinHeight: 820,
-				inclusive: true, // should the window size comparisons include the break points?
+				largeMaxWidth : 2048,
+				tallMinHeight : 820,
+				inclusive     : true, // should the window size comparisons include the break points?
 
 				// allow customizable callback
 				afterWindowSize: function () {
@@ -35,16 +35,16 @@ class TEGUtilities {
 				if (windowSize.options.inclusive) {
 					windowSize.isSmall = window.innerWidth <= windowSize.options.smallMaxWidth;
 					windowSize.isMedium =
-							TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.smallMaxWidth, windowSize.options.mediumMaxWidth, TEGUtilities.BTWN_INCL_HIGHER);
+						TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.smallMaxWidth, windowSize.options.mediumMaxWidth, TEGUtilities.BTWN_INCL_HIGHER);
 					windowSize.isLarge =
-							TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.mediumMaxWidth, windowSize.options.largeMaxWidth, TEGUtilities.BTWN_INCL_HIGHER);
+						TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.mediumMaxWidth, windowSize.options.largeMaxWidth, TEGUtilities.BTWN_INCL_HIGHER);
 					windowSize.isTall = (window.innerHeight >= windowSize.options.tallMinHeight);
 				} else {
 					windowSize.isSmall = window.innerWidth < windowSize.options.smallMaxWidth;
 					windowSize.isMedium =
-							TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.smallMaxWidth, windowSize.options.mediumMaxWidth, TEGUtilities.BTWN_INCL_NONE);
+						TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.smallMaxWidth, windowSize.options.mediumMaxWidth, TEGUtilities.BTWN_INCL_NONE);
 					windowSize.isLarge =
-							TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.mediumMaxWidth, windowSize.options.largeMaxWidth, TEGUtilities.BTWN_INCL_NONE);
+						TEGUtilities.betweenInclude(window.innerWidth, windowSize.options.mediumMaxWidth, windowSize.options.largeMaxWidth, TEGUtilities.BTWN_INCL_NONE);
 					windowSize.isTall = (window.innerHeight > windowSize.options.tallMinHeight);
 				}
 				windowSize.isLarger = window.innerWidth > windowSize.options.largeMaxWidth;
@@ -63,7 +63,7 @@ class TEGUtilities {
 		}; // end windowSize
 
 		// identify empty objects
-		if (typeof Object.prototype.isEmpty === 'undefined') Object.prototype.isEmpty = function () { return Object.entries(this).length === 0; }
+		if (typeof Object.prototype.isEmpty === 'undefined') Object.prototype.isEmpty = function () { return Object.entries(this).length === 0; };
 	} // end constructor()
 
 	static get BTWN_INCL_NONE() { return 0; }
@@ -78,9 +78,9 @@ class TEGUtilities {
 	 * between
 	 * Returns TRUE if value is strictly between minimum and maximum.
 	 *
-	 * @param {number} value, number to test
-	 * @param {number} minimum, lowest point of acceptable range
-	 * @param {number} maximum, highest point of acceptable range
+	 * @param {number} value - number to test
+	 * @param {number} minimum - lowest point of acceptable range
+	 * @param {number} maximum - highest point of acceptable range
 	 * @returns {boolean} TRUE if value is between minimum and maximum
 	 */
 	static between(value, minimum, maximum) {
@@ -92,19 +92,19 @@ class TEGUtilities {
 	 * Returns TRUE if value is between minimum and maximum allowing optional inclusion
 	 * of either or both limits.
 	 *
-	 * @param {number} value, number to test
-	 * @param {number} minimum, lowest point of acceptable range
-	 * @param {number} maximum, highest point of acceptable range
-	 * @param {number} inclusive, whether to include the end points as acceptable values
+	 * @param {number} value - number to test
+	 * @param {number} minimum - lowest point of acceptable range
+	 * @param {number} maximum - highest point of acceptable range
+	 * @param {number} inclusive - whether to include the end points as acceptable values
 	 * @returns {boolean} TRUE if value is between minimum and maximum
 	 */
 	static betweenInclude(value, minimum, maximum, inclusive) {
 		// bulletproof the arguments
-		const btwnValue = value || 0,
-				getMinimum = minimum || 0,
-				getMaximum = maximum || 0,
-				btwnMinimum = Math.min(getMinimum, getMaximum),
-				btwnMaximum = Math.max(getMinimum, getMaximum);
+		const btwnValue   = value || 0,
+		      getMinimum  = minimum || 0,
+		      getMaximum  = maximum || 0,
+		      btwnMinimum = Math.min(getMinimum, getMaximum),
+		      btwnMaximum = Math.max(getMinimum, getMaximum);
 		let btwnInclusive = inclusive || TEGUtilities.BTWN_INCL_NONE;
 
 		// if inclusive, do inclusive comparison
@@ -131,9 +131,9 @@ class TEGUtilities {
 	 * debounce
 	 * Wait to run a function until a certain time has passed since the last call.
 	 *
-	 * @param {Function} originalFunction, original function to debounce
-	 * @param {Number} timeout, timeout in milliseconds for setTimout() call
-	 * @param {Array} otherArgs, an array of any other arguments needed by the function
+	 * @param {Function} originalFunction - original function to debounce
+	 * @param {Number} timeout - timeout in milliseconds for setTimout() call
+	 * @param {Array} otherArgs - an array of any other arguments needed by the function
 	 * @returns {Function} a wrapper around originalFunction that limits execution
 	 */
 	static debounce(originalFunction, timeout, otherArgs) {
@@ -156,9 +156,9 @@ class TEGUtilities {
 	 * throttle
 	 * Don't run a function more often than a certain period of time.
 	 *
-	 * @param {Function} originalFunction, original function
-	 * @param {Number} timeout, timeout in milliseconds for setTimout() call
-	 * @param {Array} [otherArgs], an array of any other arguments needed by the function
+	 * @param {Function} originalFunction - original function
+	 * @param {Number} timeout - timeout in milliseconds for setTimout() call
+	 * @param {Array} [otherArgs] - an array of any other arguments needed by the function
 	 * @returns {Function} a wrapper around originalFunction that limits execution
 	 */
 	static throttle(originalFunction, timeout, otherArgs) {
@@ -182,63 +182,67 @@ class TEGUtilities {
 	 * preloadImages
 	 * Allow preload of images for faster update of display.
 	 *
-	 * @param {String[, String, ...]} arguments, one or more strings containing valid image URLs
+	 * @param {String[, String, ...]} arguments - one or more strings containing valid image URLs
 	 * @returns {Array} a jQuery object containing the preloaded images
 	 */
 	static preloadImages() {
-		let returnImages = [];
+		const headElement = document.getElementsByTagName('head')[0];
 
-		for (let offset in arguments) {
-			let sourcePath = arguments[offset];
-
-			if (typeof sourcePath === 'string') {
-				let newImage = document.createElement('img');
-				newImage.setAttribute('src', sourcePath);
-				returnImages.push(newImage);
-			}
+		if (!headElement) {
+			console.error('preloadImages: head element not found');
+			return;
 		}
 
-		return returnImages;
+		for (let offset in arguments) {
+			const sourcePath = arguments[offset];
+
+			if (typeof sourcePath === 'string') {
+				const newPreload = document.createElement('link');
+				newPreload.setAttribute('rel', 'preload');
+				newPreload.setAttribute('as', 'image');
+				newPreload.setAttribute('href', sourcePath);
+				headElement.append(newPreload);
+			}
+		}
 	}
 
 	/**
 	 * addCMSLandmarks
 	 * Add role attributes using a CMS's ability to add class names.
 	 *
-	 * @param {Array} allowed, list of allowed rote attribute values
+	 * @param {Array} allowed - list of allowed role attribute values
 	 */
-	static addCMSLandmarks(allowed = ['banner',
-	                                  'complementary',
-	                                  'contentinfo',
-	                                  'form',
-	                                  'main',
-	                                  'navigation',
-	                                  'region',
-	                                  'search',
-	                                  'alert',
-	                                  'log',
-	                                  'marquee',
-	                                  'status',
-	                                  'timer'])
-	{
+	static addCMSLandmarks(allowed = [
+		'banner',
+		'complementary',
+		'contentinfo',
+		'form',
+		'main',
+		'navigation',
+		'region',
+		'search',
+		'alert',
+		'log',
+		'marquee',
+		'status',
+		'timer'
+	]) {
 		document.querySelectorAll('[class*="aria-landmark-"]').forEach(function (element) {
 			element.classList.forEach(function (item) {
-				const isRole = item.indexOf('aria-landmark-') === 0,
-						roleValue = item.substring(item.indexOf('aria-landmark-') + 14),
-						isLabel = item.indexOf('aria-label-') === 0,
-						labelValue = item.substring(item.indexOf('aria-label-') + 11).replace(/[-_]/g, ' ');
+				const isRole     = item.indexOf('aria-landmark-') === 0,
+				      roleValue  = item.substring(item.indexOf('aria-landmark-') + 14),
+				      isLabel    = item.indexOf('aria-label-') === 0,
+				      labelValue = item.substring(item.indexOf('aria-label-') + 11).replace(/[-_]/g, ' ');
 
 				if (isRole &&
 				    element.getAttribute('role') === null &&
-				    allowed.includes(roleValue))
-				{
-					element.setAttribute('role', roleValue)
+				    allowed.includes(roleValue)) {
+					element.setAttribute('role', roleValue);
 				}
 
 				if (isLabel &&
 				    element.getAttribute('aria-label') === null &&
-				    labelValue !== null)
-				{
+				    labelValue !== null) {
 					element.setAttribute('aria-label', labelValue);
 				}
 			});
